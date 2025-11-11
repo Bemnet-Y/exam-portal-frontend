@@ -38,7 +38,7 @@ const CreateExam = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        "http://localhost:5000/api/teacher/courses",
+        `${import.meta.env.VITE_API_URL}/teacher/courses`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -110,7 +110,7 @@ const CreateExam = () => {
 
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/api/exams",
+        `${import.meta.env.VITE_API_URL}/exams`,
         formData,
         {
           headers: { Authorization: `Bearer ${token}` },

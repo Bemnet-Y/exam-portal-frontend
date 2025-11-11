@@ -19,9 +19,12 @@ const CollegeManagement = () => {
   const fetchColleges = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/colleges", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/colleges`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setColleges(response.data);
     } catch (error) {
       console.error("Error fetching colleges:", error);
@@ -39,7 +42,7 @@ const CollegeManagement = () => {
       if (editingCollege) {
         // Update college
         await axios.put(
-          `http://localhost:5000/api/colleges/${editingCollege._id}`,
+          `${import.meta.env.VITE_API_URL}/colleges/${editingCollege._id}`,
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -48,7 +51,7 @@ const CollegeManagement = () => {
         alert("College updated successfully");
       } else {
         // Create college
-        await axios.post("http://localhost:5000/api/colleges", formData, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/colleges`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("College created successfully");
@@ -78,9 +81,12 @@ const CollegeManagement = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/colleges/${collegeId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/colleges/${collegeId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       alert("College deactivated successfully");
       fetchColleges();
     } catch (error) {

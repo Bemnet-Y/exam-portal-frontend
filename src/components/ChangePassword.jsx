@@ -44,7 +44,7 @@ const ChangePassword = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.post(
-        "http://localhost:5000/api/auth/change-password",
+        `${import.meta.env.VITE_API_URL}/auth/change-password`,
         {
           userId: user.id,
           currentPassword: formData.currentPassword,

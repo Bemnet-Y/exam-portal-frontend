@@ -16,7 +16,7 @@ const TeacherRegistration = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/api/admin/teachers/register",
+        `${import.meta.env.VITE_API_URL}/admin/teachers/register`,
         formData,
         {
           headers: {

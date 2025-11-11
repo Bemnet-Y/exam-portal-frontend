@@ -19,13 +19,13 @@ const StudentDashboard = () => {
       const token = localStorage.getItem("token");
       const [statsResponse, examsResponse, resultsResponse] = await Promise.all(
         [
-          axios.get("http://localhost:5000/api/student/dashboard/stats", {
+          axios.get(`${import.meta.env.VITE_API_URL}/student/dashboard/stats`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:5000/api/student/exams/available", {
+          axios.get(`${import.meta.env.VITE_API_URL}/student/exams/available`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:5000/api/student/results", {
+          axios.get(`${import.meta.env.VITE_API_URL}/student/results`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]

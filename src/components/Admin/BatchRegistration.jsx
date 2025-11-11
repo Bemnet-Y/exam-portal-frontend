@@ -28,9 +28,12 @@ const BatchRegistration = () => {
   const fetchColleges = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/colleges", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/colleges`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setColleges(response.data);
     } catch (error) {
       console.error("Error fetching colleges:", error);
@@ -41,7 +44,7 @@ const BatchRegistration = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:5000/api/colleges/${collegeId}/departments`,
+        `${import.meta.env.VITE_API_URL}/colleges/${collegeId}/departments`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -99,7 +102,7 @@ const BatchRegistration = () => {
       formData.append("year", uploadData.year);
 
       const response = await axios.post(
-        "http://localhost:5000/api/admin/students/batch-register",
+        "${import.meta.env.VITE_API_URL}/admin/students/batch-register",
         formData,
         {
           headers: {

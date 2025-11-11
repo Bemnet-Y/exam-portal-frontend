@@ -13,21 +13,41 @@ const MyCourses = () => {
   const fetchCourses = async () => {
     try {
       const token = localStorage.getItem("token");
+      const user = JSON.parse(localStorage.getItem("user"));
+
+      console.log("🔍 Frontend: Fetching courses for teacher...");
+      console.log("   Teacher user:", user);
+      console.log("   Token present:", !!token);
+
       const response = await axios.get(
-        "http://localhost:5000/api/teacher/courses",
+        `${import.meta.env.VITE_API_URL}/teacher/courses`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
       );
+
+      console.log("✅ Frontend: Courses API response received");
+      console.log("   Response status:", response.status);
+      console.log("   Number of courses:", response.data.length);
+      console.log("   Courses data:", response.data);
+
       setCourses(response.data);
     } catch (error) {
-      console.error("Error fetching courses:", error);
-      alert("Failed to fetch courses");
+      console.error("❌ Frontend: Error fetching courses:", error);
+      console.error("   Error response:", error.response);
+
+      if (error.response?.status === 401) {
+        alert("Authentication failed. Please login again.");
+        localStorage.removeItem("token");
+        localStorage.removeItem("user");
+        window.location.href = "/login";
+      } else {
+        alert("Failed to fetch courses. Check console for details.");
+      }
     } finally {
       setLoading(false);
     }
   };
-
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">

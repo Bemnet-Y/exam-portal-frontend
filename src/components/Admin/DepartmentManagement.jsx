@@ -21,10 +21,10 @@ const DepartmentManagement = () => {
     try {
       const token = localStorage.getItem("token");
       const [deptsResponse, collegesResponse] = await Promise.all([
-        axios.get("http://localhost:5000/api/departments", {
+        axios.get(`${import.meta.env.VITE_API_URL}/departments`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
-        axios.get("http://localhost:5000/api/colleges", {
+        axios.get(`${import.meta.env.VITE_API_URL}/colleges`, {
           headers: { Authorization: `Bearer ${token}` },
         }),
       ]);
@@ -46,7 +46,7 @@ const DepartmentManagement = () => {
 
       if (editingDept) {
         await axios.put(
-          `http://localhost:5000/api/departments/${editingDept._id}`,
+          `${import.meta.env.VITE_API_URL}/departments/${editingDept._id}`,
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -54,9 +54,13 @@ const DepartmentManagement = () => {
         );
         alert("Department updated successfully");
       } else {
-        await axios.post("http://localhost:5000/api/departments", formData, {
-          headers: { Authorization: `Bearer ${token}` },
-        });
+        await axios.post(
+          `${import.meta.env.VITE_API_URL}/departments`,
+          formData,
+          {
+            headers: { Authorization: `Bearer ${token}` },
+          }
+        );
         alert("Department created successfully");
       }
 
@@ -84,9 +88,12 @@ const DepartmentManagement = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/departments/${deptId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/departments/${deptId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       alert("Department deactivated successfully");
       fetchData();
     } catch (error) {

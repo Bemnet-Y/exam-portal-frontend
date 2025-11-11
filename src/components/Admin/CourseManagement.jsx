@@ -37,13 +37,13 @@ const CourseManagement = () => {
       const token = localStorage.getItem("token");
       const [coursesResponse, collegesResponse, teachersResponse] =
         await Promise.all([
-          axios.get("http://localhost:5000/api/courses", {
+          axios.get(`${import.meta.env.VITE_API_URL}/courses`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:5000/api/colleges", {
+          axios.get(`${import.meta.env.VITE_API_URL}/colleges`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          axios.get("http://localhost:5000/api/admin/teachers", {
+          axios.get(`${import.meta.env.VITE_API_URL}/admin/teachers`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);
@@ -63,7 +63,7 @@ const CourseManagement = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:5000/api/colleges/${collegeId}/departments`,
+        `${import.meta.env.VITE_API_URL}/colleges/${collegeId}/departments`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -81,7 +81,7 @@ const CourseManagement = () => {
 
       if (editingCourse) {
         await axios.put(
-          `http://localhost:5000/api/courses/${editingCourse._id}`,
+          `${import.meta.env.VITE_API_URL}/courses/${editingCourse._id}`,
           formData,
           {
             headers: { Authorization: `Bearer ${token}` },
@@ -89,7 +89,7 @@ const CourseManagement = () => {
         );
         alert("Course updated successfully");
       } else {
-        await axios.post("http://localhost:5000/api/courses", formData, {
+        await axios.post(`${import.meta.env.VITE_API_URL}/courses`, formData, {
           headers: { Authorization: `Bearer ${token}` },
         });
         alert("Course created successfully");
@@ -124,9 +124,12 @@ const CourseManagement = () => {
 
     try {
       const token = localStorage.getItem("token");
-      await axios.delete(`http://localhost:5000/api/courses/${courseId}`, {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      await axios.delete(
+        `${import.meta.env.VITE_API_URL}/courses/${courseId}`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       alert("Course deactivated successfully");
       fetchData();
     } catch (error) {

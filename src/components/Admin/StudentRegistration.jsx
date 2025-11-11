@@ -29,9 +29,12 @@ const StudentRegistration = () => {
   const fetchColleges = async () => {
     try {
       const token = localStorage.getItem("token");
-      const response = await axios.get("http://localhost:5000/api/colleges", {
-        headers: { Authorization: `Bearer ${token}` },
-      });
+      const response = await axios.get(
+        `${import.meta.env.VITE_API_URL}/colleges`,
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
       setColleges(response.data);
     } catch (error) {
       console.error("Error fetching colleges:", error);
@@ -42,7 +45,7 @@ const StudentRegistration = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.get(
-        `http://localhost:5000/api/colleges/${collegeId}/departments`,
+        `${import.meta.env.VITE_API_URL}/colleges/${collegeId}/departments`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -60,7 +63,7 @@ const StudentRegistration = () => {
     try {
       const token = localStorage.getItem("token");
       const response = await axios.post(
-        "http://localhost:5000/api/admin/students/register",
+        `${import.meta.env.VITE_API_URL}/admin/students/register`,
         formData,
         {
           headers: {

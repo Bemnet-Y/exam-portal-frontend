@@ -26,7 +26,7 @@ const UserManagement = () => {
       params.append("limit", filters.limit);
 
       const response = await axios.get(
-        `http://localhost:5000/api/admin/users?${params}`,
+        `${import.meta.env.VITE_API_URL}/admin/users?${params}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -59,7 +59,7 @@ const UserManagement = () => {
     try {
       const token = localStorage.getItem("token");
       await axios.patch(
-        `http://localhost:5000/api/admin/users/${userId}/status`,
+        `${import.meta.env.VITE_API_URL}/admin/users/${userId}/status`,
         { isActive: !isActive },
         { headers: { Authorization: `Bearer ${token}` } }
       );
